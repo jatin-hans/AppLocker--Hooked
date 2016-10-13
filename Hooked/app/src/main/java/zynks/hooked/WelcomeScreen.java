@@ -1,0 +1,227 @@
+package zynks.hooked;
+
+import android.support.v7.app.AppCompatActivity;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Calendar;
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+public class WelcomeScreen extends AppCompatActivity {
+
+    EditText et1;
+    Button b1,b2;
+    int a,i;
+    public static int flag=0;
+    public static int b;
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome_screen);
+        et1=(EditText)findViewById(R.id.editText1);
+        b1=(Button)findViewById(R.id.button1);
+        b2=(Button)findViewById(R.id.button2);
+        i=3;
+
+        StringBuffer str = new StringBuffer();
+        String string;
+        try{
+            BufferedReader inp = new BufferedReader(new InputStreamReader(openFileInput("flag.txt")));
+            String input;
+
+            while((input = inp.readLine())!=null){
+                str.append(input );
+            }
+            string=str.toString();
+            flag=Integer.parseInt(string);
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        et1.setText("");
+        if(flag==0){
+            Toast.makeText(getApplicationContext(), "Default Password- 1234 ", Toast.LENGTH_LONG).show();
+        }
+
+        b1.setOnClickListener(new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+
+                if(flag==0){
+                    String x=(et1.getText().toString());
+
+                    if(x.equalsIgnoreCase("1234")){
+                        Intent open = new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(open);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Wrong Password ", Toast.LENGTH_LONG).show();
+                        et1.setText("");
+                        i--;
+                        if(i<=0){
+
+                            Toast.makeText(getApplicationContext(), "Camera gonna open", Toast.LENGTH_LONG).show();
+                            Intent img=new Intent(getApplicationContext(),ImageActivity.class);
+                            startActivity(img);
+                            i=3;
+                        }
+                    }
+                }else
+                if(flag==1){
+                    StringBuffer str = new StringBuffer();
+                    String string;
+                    try{
+                        BufferedReader inp = new BufferedReader(new InputStreamReader(openFileInput("zynks1.txt")));
+                        String input;
+
+                        while((input = inp.readLine())!=null){
+                            str.append(input );
+                        }
+                        string=str.toString();
+
+                        if(et1.getText().toString().equalsIgnoreCase(string)){
+                            Intent open = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(open);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Wrong Password ", Toast.LENGTH_LONG).show();
+                            et1.setText("");
+                            i--;
+                            if(i<=0){
+
+                                Toast.makeText(getApplicationContext(), "Camera gonna open", Toast.LENGTH_LONG).show();
+                                Intent img=new Intent(getApplicationContext(),ImageActivity.class);
+                                startActivity(img);
+                                i=3;}
+                        }
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+                }else
+                if(flag==2){
+                    Calendar cal = Calendar.getInstance();
+                    int hour=cal.get(Calendar.HOUR_OF_DAY);
+                    int min= cal.get(Calendar.MINUTE);
+                    int a=hour*100 +min;
+
+                    StringBuffer str = new StringBuffer();
+                    String string;
+                    try{
+                        BufferedReader inp = new BufferedReader(new InputStreamReader(openFileInput("zynks2.txt")));
+                        String input;
+
+                        while((input = inp.readLine())!=null){
+                            str.append(input );
+                        }
+                        string=str.toString();
+                        int b= Integer.parseInt(string);
+                        a=a+b;
+                        String tim=String.valueOf(a);
+                        String c=(et1.getText().toString());
+                        if(tim.length()==1){
+                            tim="000"+tim;
+                        }
+                        else
+                        if(tim.length()==2){
+                           tim="00"+tim;
+                        }else
+                        if(tim.length()==3){
+                            tim="0"+tim;
+                        }
+
+                        if(c.equals(tim)){
+                            Intent open = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(open);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Wrong Password ", Toast.LENGTH_LONG).show();
+                            et1.setText("");
+                            i--;
+                            if(i<=0){
+
+                                Toast.makeText(getApplicationContext(), "Camera gonna open", Toast.LENGTH_LONG).show();
+                                Intent img=new Intent(getApplicationContext(),ImageActivity.class);
+                                startActivity(img);
+                                i=3;
+                            }}
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+
+                }
+                else{
+
+                    if(flag==3){
+                        StringBuffer str = new StringBuffer();
+                        String string;
+                        try{
+                            BufferedReader inp = new BufferedReader(new InputStreamReader(openFileInput("zynks.txt")));
+                            String input;
+
+                            while((input = inp.readLine())!=null){
+                                str.append(input );
+                            }
+                            string=str.toString();
+
+                            if(et1.getText().toString().equalsIgnoreCase(string)){
+                                Intent open = new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(open);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Wrong Password ", Toast.LENGTH_LONG).show();
+                                et1.setText("");
+                                i--;
+                                if(i<=0){
+
+                                    Toast.makeText(getApplicationContext(), "Camera gonna open", Toast.LENGTH_LONG).show();
+                                    Intent img=new Intent(getApplicationContext(),ImageActivity.class);
+                                    startActivity(img);
+                                    i=3;
+                                }
+                            }
+                        }catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+
+
+
+
+                }
+                et1.setText("");
+
+
+
+            }}	);
+
+        b2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent in1=new Intent(getApplicationContext(),QuestionActivity.class);
+                startActivity(in1);
+            }
+        });
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.welcome_screen, menu);
+
+        return true;
+    }
+}

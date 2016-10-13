@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context="zynks.hooked.MainActivity">
+    <item android:id="@+id/Hooked"
+        android:title="Hooked"></item>
+    <item android:id="@+id/lock_settings"
+        android:title="Lock Settings"></item>
+    <item android:id="@+id/Recovery"
+        android:title="Recovery"></item>
+    <item android:id="@+id/About"
+        android:title="About"></item>
+
+</menu>
